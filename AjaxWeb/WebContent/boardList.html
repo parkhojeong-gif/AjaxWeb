@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>boardList.html</title>
+</head>
+<body>
+<!--  화면에 게시판데이터 table형식으로 화면에 보여주도록. -->
+<!-- DAO에 메소드 Servlet, ajax호출(XMLHttpRequest()) -->
+<h1>게시판 데이터 테이블형식입니다.</h1>
+<div id="show"></div>
+<script>  
+let xhtpp = new XMLHttpRequest();
+xhtpp.open('get', 'Board');
+xhtpp.send();
+xhtpp.onload = showContent;
+
+function showContent(){	
+		console.log(xhtpp.responseXML);
+		let doc = xhtpp.responseXML;
+		let result = doc.getElementsByTagName('record1');
+		 let tableTag = document.createElement('table');
+         tableTag.setAttribute('border', '1');
+         for(let i = 0; i<result.length; i++){
+           let trTag = document.createElement('tr');
+            for(let j= 0; j< result[i].childNodes.length; j++){
+               let tdTag = document.createElement('td');         
+               let str = result[i].childNodes[j].childNodes[0].nodeValue;
+               let textNode = document.createTextNode(str);
+               tdTag.appendChild(textNode);
+               trTag.appendChild(tdTag);
+            }
+           tableTag.appendChild(trTag);
+         }
+         document.getElementById('show').appendChild(tableTag);
+	}
+
+</script>
+</body>
+</html>
