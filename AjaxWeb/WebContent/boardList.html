@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>boardList.html</title>
+ <script src='html/showPage.js'></script>
 </head>
 <body>
 <!--  화면에 게시판데이터 table형식으로 화면에 보여주도록. -->
@@ -10,15 +11,15 @@
 <h1>게시판 데이터 테이블형식입니다.</h1>
 <div id="show"></div>
 <script>  
-let xhtpp = new XMLHttpRequest();
-xhtpp.open('get', 'Board');
-xhtpp.send();
-xhtpp.onload = showContent;
+let xhtp = new XMLHttpRequest();
+xhtp.open('get', 'Board');
+xhtp.send();
+xhtp.onload = showPage;
 
-function showContent(){	
-		console.log(xhtpp.responseXML);
-		let doc = xhtpp.responseXML;
-		let result = doc.getElementsByTagName('record1');
+/*function showContent(){	
+		console.log(xhtp.responseXML);
+		let doc = xhtp.responseXML;
+		let result = doc.getElementsByTagName('record');
 		 let tableTag = document.createElement('table');
          tableTag.setAttribute('border', '1');
          for(let i = 0; i<result.length; i++){
@@ -33,8 +34,8 @@ function showContent(){
            tableTag.appendChild(trTag);
          }
          document.getElementById('show').appendChild(tableTag);
-	}
-
+	} 
+*/
 </script>
 </body>
 </html>

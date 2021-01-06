@@ -21,21 +21,21 @@ public class BoardListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BoardListDAO dao = new BoardListDAO();
 		List<BoardListVO>list = dao.getBodList();
-		String xml1 = "<dataset>";
+		String xml = "<dataset>";
 		for(BoardListVO bod : list) {
-			xml1 +="<record1>";
-			xml1 +="<boardNo>"+bod.getBoardNo()+"</boardNo>"
+			xml +="<record>";
+			xml +="<boardNo>"+bod.getBoardNo()+"</boardNo>"
 					+"<title>"+bod.getTitle()+"</title>"
 					+"<content>"+bod.getContent()+"</content>"
 					+"<writer>"+bod.getWriter()+"</writer>"
 					+"<creationDate>"+bod.getCreationDate()+"</creationDate>";
 				
-			xml1 +="</record1>";
+			xml +="</record>";
 			
 		}
-		xml1 +="</dataset>";
+		xml +="</dataset>";
 		
-		response.getWriter().append(xml1);
+		response.getWriter().append(xml);
 	
 	
 	}

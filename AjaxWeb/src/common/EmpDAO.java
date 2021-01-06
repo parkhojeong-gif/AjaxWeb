@@ -28,8 +28,48 @@ public class EmpDAO {
         }
 	}// end of 생성자.
 	
+	public boolean insertEmp(EmployeeVO vo) {
+		String sql="insert into emp_temp"
+				+ "(employee_id, first_name, last_name, email, hire_date, job_id)"
+				+ "values(employees_seq.nextval, ?, ?, ?, sysdate, ?)";
+		int r= 0;
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getFirstName());
+			psmt.setString(2, vo.getLastName());
+			psmt.setString(3, vo.getEmail());
+			psmt.setString(4, vo.getJobId());
+			r = psmt.executeUpdate();
+			System.out.println(r+"건 입력됨.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				conn.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return r== 1? true:false;
+	}
+	
+	public boolean deleteEmp(EmployeeVO vo) {
+		String sql = "delete from emp_temp where employee_id = ?";
+		int r = 0;
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, vo.getEmployeeId());
+			
+			r = psmt.executeUpdate();
+			System.out.println(r+"건 삭제됨");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return r == 1 ? true : false ;
+	}
+	
 	public List<EmployeeVO> getEmpList() {
-		String sql="select * from employees";
+		String sql="select * from emp_temp order by 1 desc";
 		List<EmployeeVO> list = new ArrayList<>();
 		
 		try {

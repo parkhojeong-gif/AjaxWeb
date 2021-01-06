@@ -30,7 +30,7 @@ public class BoardListDAO {
         }
 	}// end of 생성자.
 	public List<BoardListVO> getBodList() {
-		String sql="select * from boards";
+		String sql="select * from boards ORDER BY 1";
 		List<BoardListVO> list = new ArrayList<>();
 		
 		try {
